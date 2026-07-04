@@ -14,7 +14,7 @@
 <meta property="og:image:type"  content="image/jpeg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt"   content="Invitación de boda de Isaac y Claudia">
+<meta property="og:image:alt"   content="Invitación de boda de Isaac &amp; Claudia — 15 Agosto 2026">
 <meta property="og:locale"      content="es_MX">
 <meta name="twitter:card"        content="summary_large_image">
 <meta name="twitter:title"       content="💌 Isaac &amp; Claudia · 15 · Agosto · 2026">
@@ -299,9 +299,10 @@ body{
 .family-label{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--accent);margin-bottom:8px;font-weight:500;}
 .family-names{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:600;line-height:1.6;color:var(--text);}
 .padrinos-eyebrow{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;letter-spacing:5px;text-transform:uppercase;color:var(--accent);text-align:center;margin:8px 0 20px;}
-.padrinos-grid{display:grid;grid-template-columns:1fr;gap:4px;max-width:340px;margin:0 auto;}
-.padrino-item{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:500;line-height:1.5;color:var(--text);text-align:center;padding:7px 0;border-bottom:1px solid rgba(87,18,27,.12);}
-.padrino-item:last-child{border-bottom:none}
+.family-section-sep{width:48px;height:1px;background:var(--accent);opacity:.25;margin:32px auto 28px;}
+.padrinos-ticker{position:relative;min-height:80px;max-width:360px;margin:0 auto;display:flex;align-items:center;justify-content:center;}
+.padrinos-tick-name{position:absolute;width:100%;text-align:center;font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;line-height:1.4;color:var(--text);opacity:0;}
+.padrinos-tick-count{font-family:'Cormorant Garamond',serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);opacity:.5;margin-top:12px;text-align:center;}
 
 /* ── CORTEJO ── */
 #cortejo{padding:72px 28px;text-align:center;background:var(--bg)}
@@ -393,6 +394,8 @@ body{
 .gal-slide{position:absolute;inset:0;opacity:0;transition:opacity .85s cubic-bezier(.4,0,.2,1);pointer-events:none;}
 .gal-slide.active{opacity:1;pointer-events:auto}
 .gal-slide img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;pointer-events:none;}
+.gal-slide:nth-child(2) img{object-position:68% 22%;}
+.gal-slide:nth-child(3) img{object-fit:contain;background:var(--card);object-position:center center;}
 .gal-vignette{position:absolute;inset:0;background:linear-gradient(to top,rgba(1,1,3,.28) 0%,transparent 55%);pointer-events:none;}
 .gal-btn{position:absolute;top:50%;transform:translateY(-50%);width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.72);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(6px);z-index:10;transition:background .2s,transform .2s;-webkit-backdrop-filter:blur(6px);}
 .gal-btn:hover{background:rgba(255,255,255,.95);transform:translateY(-50%) scale(1.08)}
@@ -447,13 +450,66 @@ body{
 .footer-credit{font-family:'Lato',sans-serif;font-weight:400;font-size:11px;letter-spacing:2px;color:var(--accent);opacity:.45;text-decoration:none;display:block;transition:opacity .3s;}
 .footer-credit:hover{opacity:.75}
 
-/* ── MUSIC FAB ── */
-.music-fab{position:fixed;bottom:24px;right:24px;width:56px;height:56px;border-radius:50%;background:var(--accent);border:none;cursor:pointer;z-index:998;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(87,18,27,.35);color:#fff;}
-.music-fab::after{content:'';position:absolute;inset:0;border-radius:50%;background:var(--accent);animation:fabpulse 2.2s ease-out infinite;z-index:-1;}
-@keyframes fabpulse{0%{transform:scale(1);opacity:.55}100%{transform:scale(1.9);opacity:0}}
-.music-fab svg{width:22px;height:22px;fill:currentColor}
-.music-fab.playing .ic-play{display:none}
-.music-fab:not(.playing) .ic-pause{display:none}
+/* ── VINYL PLAYER ── */
+.vinyl-btn{
+  position:fixed;bottom:20px;right:20px;z-index:998;
+  width:72px;height:72px;border-radius:50%;padding:0;
+  border:none;cursor:pointer;background:transparent;
+  opacity:0;transform:scale(.6);pointer-events:none;
+  transition:transform .35s cubic-bezier(.2,.7,.2,1);
+  box-shadow:0 4px 18px rgba(0,0,0,.45),0 0 0 1px rgba(87,18,27,.2);
+}
+.vinyl-btn.is-ready{opacity:1;transform:scale(1);pointer-events:auto}
+.vinyl-btn:hover{transform:scale(1.1)}
+.vinyl-spin{width:100%;height:100%;border-radius:50%;position:relative;transition:none;}
+.vinyl-btn.is-playing .vinyl-spin{animation:vinylSpin 1.8s linear infinite}
+@keyframes vinylSpin{to{transform:rotate(360deg)}}
+.vinyl-disc{width:100%;height:100%;border-radius:50%;overflow:hidden;position:relative;
+  background:
+    radial-gradient(circle,#1a0508 4%,transparent 4.5%),
+    radial-gradient(circle,#57121b 0%,#8c1f2e 17%,#6b1622 19%,transparent 19.5%),
+    repeating-radial-gradient(circle,
+      transparent 20%,rgba(255,255,255,.055) 20.8%,transparent 21.5%,
+      transparent 24%,rgba(255,255,255,.04) 24.8%,transparent 25.5%,
+      transparent 28%,rgba(255,255,255,.055) 28.8%,transparent 29.5%,
+      transparent 32%,rgba(255,255,255,.04) 32.8%,transparent 33.5%,
+      transparent 36%,rgba(255,255,255,.055) 36.8%,transparent 37.5%,
+      transparent 40%,rgba(255,255,255,.04) 40.8%,transparent 41.5%,
+      transparent 44%,rgba(255,255,255,.055) 44.8%,transparent 45.5%,
+      transparent 48%,rgba(255,255,255,.04) 48.8%,transparent 49.5%,
+      transparent 52%,rgba(255,255,255,.055) 52.8%,transparent 53.5%,
+      transparent 56%,rgba(255,255,255,.04) 56.8%,transparent 57.5%,
+      transparent 60%,rgba(255,255,255,.055) 60.8%,transparent 61.5%,
+      transparent 64%,rgba(255,255,255,.04) 64.8%,transparent 65.5%,
+      transparent 68%,rgba(255,255,255,.055) 68.8%,transparent 69.5%,
+      transparent 72%,rgba(255,255,255,.04) 72.8%,transparent 73.5%,
+      transparent 76%,rgba(255,255,255,.055) 76.8%,transparent 77.5%,
+      transparent 80%,rgba(255,255,255,.04) 80.8%,transparent 81.5%,
+      transparent 84%,rgba(255,255,255,.055) 84.8%,transparent 85.5%,
+      transparent 88%,rgba(255,255,255,.04) 88.8%,transparent 89.5%,
+      transparent 92%,rgba(255,255,255,.055) 92.8%,transparent 93.5%,
+      transparent 96%,rgba(255,255,255,.04) 96.8%,transparent 97.5%
+    ),
+    radial-gradient(circle,#0d0305 0%,#1a0508 60%,#0d0305 100%);
+  box-shadow:inset 0 0 8px rgba(0,0,0,.4);
+}
+.vinyl-sheen{position:absolute;inset:0;border-radius:50%;background:linear-gradient(135deg,transparent 30%,rgba(255,255,255,.09) 42%,rgba(255,255,255,.15) 48%,rgba(255,255,255,.09) 54%,transparent 66%);pointer-events:none;}
+.vinyl-label-text{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--script);font-size:11px;color:#f2f0d7;text-align:center;line-height:1.1;opacity:.85;pointer-events:none;width:26px;}
+.vinyl-label-text small{font-family:var(--sans);font-size:5px;letter-spacing:.15em;display:block;margin-top:1px;opacity:.7}
+.vinyl-hole{position:absolute;top:50%;left:50%;width:6px;height:6px;transform:translate(-50%,-50%);border-radius:50%;background:#0d0305;box-shadow:0 0 0 1.5px rgba(87,18,27,.5);}
+.vinyl-icons{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:18px;height:18px;pointer-events:none;z-index:2;}
+.vinyl-icons svg{width:100%;height:100%;display:block}
+.vinyl-icon-pause{display:none}
+.vinyl-btn.is-playing .vinyl-icon-play{display:none}
+.vinyl-btn.is-playing .vinyl-icon-pause{display:block}
+.vinyl-btn::after{content:"";position:absolute;inset:-5px;border-radius:50%;border:1px solid #C9A456;opacity:.3;animation:vinylPulse 3s ease-in-out infinite;}
+.vinyl-btn.is-playing::after{animation-duration:1.6s}
+@keyframes vinylPulse{0%,100%{transform:scale(1);opacity:.3}50%{transform:scale(1.12);opacity:.05}}
+.vinyl-tonearm{position:absolute;top:-4px;right:-2px;width:24px;height:34px;transform-origin:top right;transform:rotate(-28deg);transition:transform .6s cubic-bezier(.2,.7,.2,1);pointer-events:none;z-index:1;}
+.vinyl-btn.is-playing .vinyl-tonearm{transform:rotate(-12deg)}
+.vinyl-tonearm-line{position:absolute;top:2px;right:4px;width:2px;height:28px;background:linear-gradient(to bottom,#A87D00,#E6AC00 40%,#A87D00);border-radius:1px;transform:rotate(-5deg);transform-origin:top center;}
+.vinyl-tonearm-head{position:absolute;bottom:0;right:2px;width:5px;height:6px;background:#E6AC00;border-radius:0 0 2px 2px;}
+.vinyl-tonearm-pivot{position:absolute;top:0;right:2px;width:7px;height:7px;background:radial-gradient(circle,#F2C84B,#A87D00);border-radius:50%;box-shadow:0 1px 3px rgba(0,0,0,.3);}
 </style>
 </head>
 <body>
@@ -487,7 +543,6 @@ body{
       <span class="hero-bride rv">Isaac</span>
       <span class="hero-amp rv">&amp;</span>
       <span class="hero-groom rv">Claudia</span>
-      <span class="hero-date rv">Sábado · 15 de Agosto · 2026</span>
     </div>
     <div class="scroll-hint" id="scrollHint">
       <span class="scroll-hint-txt">Desliza</span>
@@ -574,65 +629,72 @@ body{
     <span class="quote-sig rv">Isaac &amp; Claudia</span>
   </section>
 
-  <!-- ── ORNAMENTO A (bg → surface) ── -->
-  <div class="ornament ornament--b2s rv">
-    <svg viewBox="0 0 360 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <g opacity=".5" stroke="#57121b">
-        <path d="M180 58 C158 42 118 34 68 16" stroke-width="1.3"/>
-        <path d="M180 58 C202 42 242 34 292 16" stroke-width="1.3"/>
-        <path d="M138 36 C130 26 122 20 116 12" stroke-width=".9"/>
-        <path d="M108 24 C100 18 94 12 90 6" stroke-width=".9"/>
-        <path d="M222 36 C230 26 238 20 244 12" stroke-width=".9"/>
-        <path d="M252 24 C260 18 266 12 270 6" stroke-width=".9"/>
-        <path d="M128 32 C120 28 112 26 106 27" stroke-width=".8"/>
-        <path d="M98 20 C90 16 82 17 76 19" stroke-width=".8"/>
-        <path d="M232 32 C240 28 248 26 254 27" stroke-width=".8"/>
-        <path d="M262 20 C270 16 278 17 284 19" stroke-width=".8"/>
-      </g>
-      <g opacity=".5" fill="#57121b">
-        <circle cx="116" cy="12" r="2.5"/><circle cx="114" cy="9" r="1.4"/>
-        <circle cx="118" cy="9" r="1.4"/><circle cx="116" cy="6" r="1.4"/>
-        <circle cx="90" cy="6" r="2.2"/><circle cx="88" cy="3" r="1.3"/><circle cx="92" cy="3" r="1.3"/>
-        <circle cx="106" cy="27" r="1.8"/><circle cx="76" cy="19" r="1.8"/>
-        <circle cx="244" cy="12" r="2.5"/><circle cx="242" cy="9" r="1.4"/>
-        <circle cx="246" cy="9" r="1.4"/><circle cx="244" cy="6" r="1.4"/>
-        <circle cx="270" cy="6" r="2.2"/><circle cx="268" cy="3" r="1.3"/><circle cx="272" cy="3" r="1.3"/>
-        <circle cx="254" cy="27" r="1.8"/><circle cx="284" cy="19" r="1.8"/>
-      </g>
-      <circle cx="180" cy="48" r="3" fill="#57121b" opacity=".5"/>
-      <path d="M180 58 L180 50" stroke="#57121b" stroke-width="1" opacity=".5"/>
-    </svg>
-  </div>
-
   <!-- ── 5. FAMILIA ── -->
   <section id="familia" class="sec">
+    <div class="ornament rv" style="padding:0 0 8px;background:transparent;">
+      <svg viewBox="0 0 360 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g opacity=".5" stroke="#57121b">
+          <path d="M180 58 C158 42 118 34 68 16" stroke-width="1.3"/>
+          <path d="M180 58 C202 42 242 34 292 16" stroke-width="1.3"/>
+          <path d="M138 36 C130 26 122 20 116 12" stroke-width=".9"/>
+          <path d="M108 24 C100 18 94 12 90 6" stroke-width=".9"/>
+          <path d="M222 36 C230 26 238 20 244 12" stroke-width=".9"/>
+          <path d="M252 24 C260 18 266 12 270 6" stroke-width=".9"/>
+          <path d="M128 32 C120 28 112 26 106 27" stroke-width=".8"/>
+          <path d="M98 20 C90 16 82 17 76 19" stroke-width=".8"/>
+          <path d="M232 32 C240 28 248 26 254 27" stroke-width=".8"/>
+          <path d="M262 20 C270 16 278 17 284 19" stroke-width=".8"/>
+        </g>
+        <g opacity=".5" fill="#57121b">
+          <circle cx="116" cy="12" r="2.5"/><circle cx="114" cy="9" r="1.4"/>
+          <circle cx="118" cy="9" r="1.4"/><circle cx="116" cy="6" r="1.4"/>
+          <circle cx="90" cy="6" r="2.2"/><circle cx="88" cy="3" r="1.3"/><circle cx="92" cy="3" r="1.3"/>
+          <circle cx="106" cy="27" r="1.8"/><circle cx="76" cy="19" r="1.8"/>
+          <circle cx="244" cy="12" r="2.5"/><circle cx="242" cy="9" r="1.4"/>
+          <circle cx="246" cy="9" r="1.4"/><circle cx="244" cy="6" r="1.4"/>
+          <circle cx="270" cy="6" r="2.2"/><circle cx="268" cy="3" r="1.3"/><circle cx="272" cy="3" r="1.3"/>
+          <circle cx="254" cy="27" r="1.8"/><circle cx="284" cy="19" r="1.8"/>
+        </g>
+        <circle cx="180" cy="48" r="3" fill="#57121b" opacity=".5"/>
+        <path d="M180 58 L180 50" stroke="#57121b" stroke-width="1" opacity=".5"/>
+      </svg>
+    </div>
     <p class="eyebrow rv">Con la bendición de</p>
     <h2 class="script-title rv">Nuestras Familias</h2>
 
     <div class="family-parents rv">
       <div class="family-side">
         <p class="family-label">Padres del Novio</p>
-        <p class="family-names">German Obezo<br>y Esperanza Salinas</p>
+        <p class="family-names">Germán Obezo<br>Esperanza Salinas</p>
       </div>
       <div class="family-divider-v"></div>
       <div class="family-side">
         <p class="family-label">Padres de la Novia</p>
-        <p class="family-names">José M. Garay<br>y Paula M. Valdiviezo</p>
+        <p class="family-names">José M. Garay<br>Paula M. Valdiviezo</p>
       </div>
     </div>
 
-    <p class="eyebrow padrinos-eyebrow rv">Nuestros Padrinos</p>
-    <div class="padrinos-grid rv">
-      <div class="padrino-item">Pedro Lozano e Irene Garay</div>
-      <div class="padrino-item">Emilia Delgadillo</div>
-      <div class="padrino-item">Heriberto López y Teresa Ruiz</div>
-      <div class="padrino-item">Rubén Paez y Sandra Paez</div>
-      <div class="padrino-item">Macario Rodríguez y Brenda Velasco</div>
-      <div class="padrino-item">Ivan Rodríguez y Nora Rodríguez</div>
-      <div class="padrino-item">José L. Valdiviezo y Erika Lozano</div>
-      <div class="padrino-item">Manuel Carreón y Carmen Navarro</div>
-      <div class="padrino-item">José Dolores y María Soledad</div>
+    <div class="family-section-sep rv"></div>
+    <p class="eyebrow padrinos-eyebrow rv">Nuestros Hijos</p>
+    <div class="rv" style="text-align:center;">
+      <p class="family-names">Liam Obezo<br>Itzayana Obezo<br>Sandra Obezo</p>
     </div>
+
+    <div class="family-section-sep rv"></div>
+    <p class="eyebrow padrinos-eyebrow rv">Nuestros Padrinos</p>
+    <div class="padrinos-ticker rv" id="padrinosTicker">
+      <div class="padrinos-tick-name">Pedro Lozano e Irene Garay</div>
+      <div class="padrinos-tick-name">Emilia Delgadillo</div>
+      <div class="padrinos-tick-name">Heriberto López y Teresa Ruiz</div>
+      <div class="padrinos-tick-name">Rubén Paez y Sandra Paez</div>
+      <div class="padrinos-tick-name">Macario Rodríguez y Brenda Velasco</div>
+      <div class="padrinos-tick-name">Ivan Rodríguez y Nora Rodríguez</div>
+      <div class="padrinos-tick-name">José L. Valdiviezo y Erika Lozano</div>
+      <div class="padrinos-tick-name">Manuel Carreón y Carmen Navarro</div>
+      <div class="padrinos-tick-name">José Dolores y María Soledad</div>
+      <div class="padrinos-tick-name">Raúl Rivera y Laura Martínez</div>
+    </div>
+    <p class="padrinos-tick-count rv" id="padrinosCount">1 / 10</p>
   </section>
 
   <!-- ── ORNAMENTO B ── -->
@@ -648,7 +710,6 @@ body{
 
   <!-- ── 6. CORTEJO ── -->
   <section id="cortejo" class="sec sec--bg">
-    <p class="eyebrow rv">Quienes nos acompañan</p>
     <h2 class="script-title rv">Cortejo</h2>
 
     <div class="cortejo-cols rv">
@@ -662,21 +723,20 @@ body{
         </ul>
       </div>
       <div class="cortejo-col">
-        <span class="cortejo-col-label">Chambelanes</span>
+        <span class="cortejo-col-label">Caballeros de Honor</span>
         <ul class="cortejo-list">
-          <li>Angel Carreón</li>
-          <li>Jafet Rodríguez</li>
           <li>Fernando Olivas</li>
-          <li>Marco García</li>
           <li>Homero Jiménez</li>
+          <li>Marco García</li>
+          <li>Jafet Rodríguez</li>
+          <li>Angel Carreón</li>
         </ul>
       </div>
     </div>
 
-    <!-- PENDIENTE: nombres de los niños del cortejo -->
     <div class="kids-cortejo rv">
       <span class="kids-cortejo-label">Pequeños del Cortejo</span>
-      <p class="kids-cortejo-pending">Próximamente anunciaremos los nombres de los pequeños que formarán parte de este día tan especial.</p>
+      <p class="family-names" style="margin-top:10px;">Mateo Rodríguez<br>Emely Salgado<br>Monserrath Valdiviezo</p>
     </div>
   </section>
 
@@ -717,10 +777,10 @@ body{
 
     <div class="loc-card rv">
       <div class="loc-name">Ceremonia</div>
-      <div class="loc-sub">Ceremonia Religiosa</div>
-      <div class="loc-hours">2:00 PM</div>
+      <div class="loc-sub">Holy Family Catholic Church</div>
       <div class="loc-address">889 Park Ave<br>Meeker, CO 81641</div>
       <div class="loc-city">Meeker, Colorado</div>
+      <div class="loc-hours">2:00 PM</div>
       <a href="https://www.google.com/maps/search/?api=1&query=889+Park+Ave+Meeker+CO+81641"
          target="_blank" rel="noopener" class="btn-map">
         <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
@@ -730,10 +790,10 @@ body{
 
     <div class="loc-card rv">
       <div class="loc-name">Recepción</div>
-      <div class="loc-sub">Recepción &amp; Cena</div>
-      <div class="loc-hours">5:00 PM</div>
+      <div class="loc-sub">Salón</div>
       <div class="loc-address">200 Main St #200<br>Meeker, CO 81641</div>
       <div class="loc-city">Meeker, Colorado</div>
+      <div class="loc-hours">5:00 PM</div>
       <a href="https://www.google.com/maps/search/?api=1&query=200+Main+St+Meeker+CO+81641"
          target="_blank" rel="noopener" class="btn-map">
         <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
@@ -750,19 +810,17 @@ body{
     </a>
   </section>
 
-  <!-- ── ORNAMENTO B ── -->
-  <div class="ornament ornament--s2b rv">
-    <svg viewBox="0 0 260 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <line x1="20" y1="16" x2="112" y2="16" stroke="#57121b" stroke-width="1" opacity=".4"/>
-      <rect x="125" y="9" width="10" height="10" rx="1" transform="rotate(45 130 14)" fill="#57121b" opacity=".5"/>
-      <line x1="148" y1="16" x2="240" y2="16" stroke="#57121b" stroke-width="1" opacity=".4"/>
-      <circle cx="20" cy="16" r="2" fill="#57121b" opacity=".35"/>
-      <circle cx="240" cy="16" r="2" fill="#57121b" opacity=".35"/>
-    </svg>
-  </div>
-
   <!-- ── 8. ITINERARIO ── -->
   <section id="itinerario" class="sec sec--bg">
+    <div class="ornament rv" style="padding:0 0 8px;background:transparent;">
+      <svg viewBox="0 0 260 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="20" y1="16" x2="112" y2="16" stroke="#57121b" stroke-width="1" opacity=".4"/>
+        <rect x="125" y="9" width="10" height="10" rx="1" transform="rotate(45 130 14)" fill="#57121b" opacity=".5"/>
+        <line x1="148" y1="16" x2="240" y2="16" stroke="#57121b" stroke-width="1" opacity=".4"/>
+        <circle cx="20" cy="16" r="2" fill="#57121b" opacity=".35"/>
+        <circle cx="240" cy="16" r="2" fill="#57121b" opacity=".35"/>
+      </svg>
+    </div>
     <p class="eyebrow rv">Programa del Día</p>
     <h2 class="script-title rv">Itinerario</h2>
 
@@ -772,10 +830,6 @@ body{
       <div class="itin-item itin-row-l">
         <div class="itin-time">2:00 PM</div>
         <div class="itin-evt">Ceremonia Religiosa</div>
-        <a href="https://youtu.be/P32GHXR9AVU?si=CqgqcUMwZPQf1-lq" target="_blank" rel="noopener" class="itin-link">
-          <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-          Nuestra canción
-        </a>
       </div>
       <div class="itin-dot-col"><div class="itin-dot"></div></div>
       <div></div>
@@ -783,7 +837,7 @@ body{
       <div></div>
       <div class="itin-dot-col"><div class="itin-dot"></div></div>
       <div class="itin-item itin-item--r itin-row-r">
-        <div class="itin-time">5:00 PM</div>
+        <div class="itin-time">5:00 – 7:00 PM</div>
         <div class="itin-evt">Recepción y Cena</div>
       </div>
 
@@ -840,39 +894,40 @@ body{
     <p class="dc-subtitle rv">Formal</p>
     <p class="dc-note rv">Pero lo más importante es tu presencia y tu sonrisa.</p>
 
-    <!-- PENDIENTE: colores sugeridos de vestimenta -->
-    <p class="dc-pending rv">Paleta de colores sugerida próximamente</p>
 
-    <div class="no-kids rv">
-      <svg viewBox="0 0 24 24">
-        <circle cx="12" cy="7" r="4"/>
-        <path d="M5.5 21a7 7 0 0 1 13 0"/>
-        <line x1="18" y1="3" x2="21" y2="6"/>
-        <line x1="21" y1="3" x2="18" y2="6"/>
-      </svg>
-      <span>Nuestra celebración es para adultos. Los únicos niños presentes serán los integrantes del cortejo nupcial. Agradecemos tu comprensión.</span>
-    </div>
   </section>
 
   <!-- ── 10. GALERÍA — NUESTRA HISTORIA ── -->
   <section id="galeria">
-    <p class="eyebrow rv">Nosotros</p>
     <h2 class="script-title rv">Nuestra Historia</h2>
-    <!-- PENDIENTE: texto de la historia de la pareja (a proporcionar por el cliente) -->
-    <p class="historia-txt rv">Dos caminos que un día se cruzaron para no volver a separarse. Cada momento compartido nos trajo hasta aquí, y este es solo el comienzo de nuestra historia.</p>
+    <p class="historia-txt rv">Nuestra historia de amor comenzó en el 2012. Éramos apenas unos adolescentes cuando decidimos entrelazar nuestras vidas para construir un solo destino. En esta travesía hemos caminado juntos, superando cada prueba gracias al inmenso amor que nos une.<br><br>Hoy, de la mano de Dios y cobijados por la sonrisa y la felicidad de nuestros tres hermosos hijos, nos emociona compartirles el inicio de una etapa muy especial: uniremos nuestras vidas con un «Sí, acepto» para siempre.<br><br>Vamos despacio, pero firmes, alcanzando metas y construyendo sueños. Y aunque la distancia de nuestros padres y raíces nos deja un sabor agridulce, su amor constante acorta cualquier frontera. Dios ha sido fiel y sus tiempos son perfectos; lo vemos reflejado en nuestro hogar y en los amigos y familia elegida que nos acompañan y bendicen en este hermoso proceso.<br><br>Nos complace invitarlos a celebrar nuestra Boda Religiosa. Con fe, amor y su compañía, seguiremos creando recuerdos inolvidables.</p>
     <div class="gal-wrap rv">
       <div class="gal-carousel" id="galCarousel">
-        <!-- PENDIENTE: fotos de la pareja -->
         <div class="gal-slide active">
-          <img src="foto1.jpg" alt="Isaac &amp; Claudia">
+          <img src="foto1.jpg" alt="Isaac &amp; Claudia" loading="eager">
           <div class="gal-vignette"></div>
         </div>
         <div class="gal-slide">
-          <img src="foto2.jpg" alt="Isaac &amp; Claudia">
+          <img src="foto2.jpg" alt="Isaac &amp; Claudia" loading="lazy">
           <div class="gal-vignette"></div>
         </div>
         <div class="gal-slide">
-          <img src="foto3.jpg" alt="Isaac &amp; Claudia">
+          <img src="foto3.jpg" alt="Isaac &amp; Claudia" loading="lazy">
+          <div class="gal-vignette"></div>
+        </div>
+        <div class="gal-slide">
+          <img src="foto4.jpg" alt="Isaac &amp; Claudia" loading="lazy">
+          <div class="gal-vignette"></div>
+        </div>
+        <div class="gal-slide">
+          <img src="foto5.jpg" alt="Isaac &amp; Claudia" loading="lazy">
+          <div class="gal-vignette"></div>
+        </div>
+        <div class="gal-slide">
+          <img src="foto6.jpg" alt="Isaac &amp; Claudia" loading="lazy">
+        </div>
+        <div class="gal-slide">
+          <img src="foto7.jpg" alt="Isaac &amp; Claudia" loading="lazy">
           <div class="gal-vignette"></div>
         </div>
         <button class="gal-btn gal-prev" aria-label="Anterior">
@@ -886,97 +941,38 @@ body{
         <button class="gal-dot active" aria-label="Foto 1"></button>
         <button class="gal-dot" aria-label="Foto 2"></button>
         <button class="gal-dot" aria-label="Foto 3"></button>
+        <button class="gal-dot" aria-label="Foto 4"></button>
+        <button class="gal-dot" aria-label="Foto 5"></button>
+        <button class="gal-dot" aria-label="Foto 6"></button>
+        <button class="gal-dot" aria-label="Foto 7"></button>
       </div>
     </div>
   </section>
-
-  <!-- ── ORNAMENTO B ── -->
-  <div class="ornament rv">
-    <svg viewBox="0 0 260 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <line x1="20" y1="16" x2="112" y2="16" stroke="#57121b" stroke-width="1" opacity=".4"/>
-      <rect x="125" y="9" width="10" height="10" rx="1" transform="rotate(45 130 14)" fill="#57121b" opacity=".5"/>
-      <line x1="148" y1="16" x2="240" y2="16" stroke="#57121b" stroke-width="1" opacity=".4"/>
-      <circle cx="20" cy="16" r="2" fill="#57121b" opacity=".35"/>
-      <circle cx="240" cy="16" r="2" fill="#57121b" opacity=".35"/>
-    </svg>
-  </div>
-
-  <!-- ── 11. MESA DE REGALOS ── -->
-  <section id="regalos">
-    <p class="eyebrow rv">Mesa de Regalos</p>
-    <h2 class="script-title rv">Un Obsequio</h2>
-    <div class="gift-card rv">
-      <p class="gift-msg">
-        Tu presencia a nuestro lado es el regalo más valioso que podemos recibir.<br>
-        Sin embargo, si deseas celebrar este día con un obsequio, con todo nuestro cariño te compartimos:
-      </p>
-      <div class="gift-divider"></div>
-      <!-- PENDIENTE: links de mesa de regalos -->
-      <div class="gift-stores">
-        <a href="#" class="btn-store btn-amazon">
-          <svg viewBox="0 0 24 24"><path d="M.045 18.02c.072-.116.187-.124.348-.022 3.636 2.11 7.594 3.166 11.87 3.166 2.852 0 5.668-.533 8.447-1.595l.315-.14c.138-.06.234-.1.293-.13.226-.088.39-.046.494.124.108.168.066.334-.124.496-.866.768-1.9 1.33-3.1 1.686a20.5 20.5 0 0 1-9.256.523c-2.897-.48-5.545-1.56-7.93-3.24-.154-.102-.196-.226-.126-.37zm6.02-9.366c0-1.29.324-2.37.978-3.24.654-.875 1.545-1.315 2.67-1.315 1.168 0 2.07.43 2.7 1.285.63.854.946 1.94.946 3.262 0 1.274-.324 2.336-.974 3.188-.648.854-1.548 1.278-2.698 1.278-1.156 0-2.05-.424-2.68-1.278-.627-.854-.94-1.916-.94-3.18zm2.68 10.36c-1.876 0-3.53-.39-4.962-1.167-1.432-.78-2.548-1.883-3.35-3.31-.8-1.428-1.2-3.07-1.2-4.924 0-1.793.402-3.385 1.204-4.776.802-1.39 1.912-2.47 3.33-3.238 1.42-.768 3.056-1.153 4.912-1.153 2.68 0 4.824.798 6.436 2.396 1.61 1.597 2.416 3.7 2.416 6.31 0 2.604-.808 4.71-2.424 6.32-1.614 1.608-3.756 2.544-6.362 2.544z"/></svg>
-          Lista en Amazon &mdash; Próximamente
-        </a>
-        <a href="#" class="btn-store btn-liverpool">
-          <svg viewBox="0 0 24 24"><path d="M20 7H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2zm0 12H4V9h16v10zM12 3H8V1H7v2H5V1H4v2c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V1h-1v2h-2V1h-1v2z"/></svg>
-          Lista en Liverpool &mdash; Próximamente
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── ORNAMENTO A (bg → surface) ── -->
-  <div class="ornament ornament--b2s rv">
-    <svg viewBox="0 0 360 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <g opacity=".5" stroke="#57121b">
-        <path d="M180 58 C158 42 118 34 68 16" stroke-width="1.3"/>
-        <path d="M180 58 C202 42 242 34 292 16" stroke-width="1.3"/>
-        <path d="M138 36 C130 26 122 20 116 12" stroke-width=".9"/>
-        <path d="M222 36 C230 26 238 20 244 12" stroke-width=".9"/>
-      </g>
-      <g opacity=".5" fill="#57121b">
-        <circle cx="116" cy="12" r="2.5"/><circle cx="244" cy="12" r="2.5"/>
-      </g>
-      <circle cx="180" cy="48" r="3" fill="#57121b" opacity=".5"/>
-      <path d="M180 58 L180 50" stroke="#57121b" stroke-width="1" opacity=".5"/>
-    </svg>
-  </div>
 
   <!-- ── 12. ÁLBUM COMPARTIDO ── -->
   <section id="album">
+    <div class="ornament rv" style="padding:0 0 8px;background:transparent;">
+      <svg viewBox="0 0 360 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g opacity=".5" stroke="#57121b">
+          <path d="M180 58 C158 42 118 34 68 16" stroke-width="1.3"/>
+          <path d="M180 58 C202 42 242 34 292 16" stroke-width="1.3"/>
+          <path d="M138 36 C130 26 122 20 116 12" stroke-width=".9"/>
+          <path d="M222 36 C230 26 238 20 244 12" stroke-width=".9"/>
+        </g>
+        <g opacity=".5" fill="#57121b">
+          <circle cx="116" cy="12" r="2.5"/><circle cx="244" cy="12" r="2.5"/>
+        </g>
+        <circle cx="180" cy="48" r="3" fill="#57121b" opacity=".5"/>
+        <path d="M180 58 L180 50" stroke="#57121b" stroke-width="1" opacity=".5"/>
+      </svg>
+    </div>
     <p class="eyebrow rv">Comparte el Momento</p>
     <h2 class="script-title rv">Álbum Compartido</h2>
     <p class="album-note rv">¡Queremos ver la boda a través de tus ojos! Escanea el código y sube tus fotos al álbum de Isaac &amp; Claudia.</p>
     <!-- PENDIENTE: link del álbum compartido -->
     <div class="album-qr-wrap rv">
-      <img src="https://api.qrserver.com/v1/create-qr-code/?size=360x360&color=57121b&bgcolor=f2f0d7&margin=18&data=https%3A%2F%2Fboda-isaac-y-claudia.vercel.app" alt="QR Álbum de fotos Isaac y Claudia">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=360x360&color=57121b&bgcolor=f2f0d7&margin=18&data=https%3A%2F%2Fdrive.google.com%2Fdrive%2Ffolders%2F1znCwqJXpO1Bz9gr_vXVgTC4SYooF2qTB%3Fusp%3Dsharing" alt="QR Álbum de fotos Isaac y Claudia">
       <span class="qr-label">Escanea para subir tus fotos</span>
-    </div>
-  </section>
-
-  <!-- ── ORNAMENTO B (surface → bg) ── -->
-  <div class="ornament ornament--s2b rv">
-    <svg viewBox="0 0 260 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <line x1="20" y1="16" x2="112" y2="16" stroke="#57121b" stroke-width="1" opacity=".4"/>
-      <rect x="125" y="9" width="10" height="10" rx="1" transform="rotate(45 130 14)" fill="#57121b" opacity=".5"/>
-      <line x1="148" y1="16" x2="240" y2="16" stroke="#57121b" stroke-width="1" opacity=".4"/>
-      <circle cx="20" cy="16" r="2" fill="#57121b" opacity=".35"/>
-      <circle cx="240" cy="16" r="2" fill="#57121b" opacity=".35"/>
-    </svg>
-  </div>
-
-  <!-- ── 13. RSVP ── -->
-  <section id="rsvp" class="sec sec--bg">
-    <p class="eyebrow rv">Confirma tu Asistencia</p>
-    <h2 class="script-title rv">R.S.V.P.</h2>
-    <p class="rsvp-note rv">Tu confirmación nos ayuda a preparar todo con amor</p>
-
-    <div class="rsvp-simple rv">
-      <p class="rsvp-msg">Haz clic en el botón para confirmar tu asistencia a nuestra boda. ¡Nos hace muy felices contar contigo!</p>
-      <button class="btn-wa" onclick="sendRsvp()">
-        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.165-.008-.35-.01-.534-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.559 4.122 1.535 5.858L0 24l6.335-1.513A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.795 9.795 0 0 1-5.003-1.374l-.359-.213-3.724.889.923-3.614-.234-.373A9.773 9.773 0 0 1 2.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
-        Confirmar Asistencia
-      </button>
     </div>
   </section>
 
@@ -990,15 +986,28 @@ body{
 
 </div><!-- /.wrap -->
 
-<!-- ── MUSIC FAB ── -->
-<button class="music-fab" id="musicFab" aria-label="Reproducir música de fondo">
-  <svg class="ic-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-  <svg class="ic-pause" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
-</button>
-<!-- PENDIENTE: canción de fondo (audio.mp3 del cliente) -->
-<audio id="bgAudio" loop preload="auto">
-  <source src="audio.mp3" type="audio/mpeg">
+<!-- ── VINYL PLAYER ── -->
+<audio id="music" preload="auto" loop>
+  <source src="cancion.mp3" type="audio/mpeg">
 </audio>
+<button class="vinyl-btn" id="music-btn" type="button" aria-label="Reproducir música de la invitación">
+  <div class="vinyl-tonearm">
+    <div class="vinyl-tonearm-pivot"></div>
+    <div class="vinyl-tonearm-line"></div>
+    <div class="vinyl-tonearm-head"></div>
+  </div>
+  <div class="vinyl-spin">
+    <div class="vinyl-disc">
+      <div class="vinyl-sheen"></div>
+      <div class="vinyl-label-text">I&amp;C<small>2026</small></div>
+      <div class="vinyl-hole"></div>
+    </div>
+  </div>
+  <div class="vinyl-icons">
+    <svg class="vinyl-icon-play" viewBox="0 0 24 24" fill="#f2f0d7" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+    <svg class="vinyl-icon-pause" viewBox="0 0 24 24" fill="#f2f0d7" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+  </div>
+</button>
 
 <div id="env-flash"></div>
 
@@ -1082,7 +1091,7 @@ function initEnvelope(){
 
 /* Pétalos tonos carmesí/rosa */
 (function initPetals(){
-  const colors=['#F2D0D5','#E8B5BC','#F8E8EA','#D49AA4','#FDF2F3','#DAAAB0'];
+  const colors=['#57121b','#7a1a26','#57121b','#9e2030','#57121b','#6b1622'];
   const wrap=document.getElementById('petals');
   for(let i=0;i<28;i++){
     const p=document.createElement('div');
@@ -1126,28 +1135,55 @@ function initEnvelope(){
   tick(); setInterval(tick,1000);
 })();
 
-(function initFab(){
-  const audio=document.getElementById('bgAudio');
-  const fab=document.getElementById('musicFab');
-  audio.volume=0.18;
-  function tryPlay(){
-    audio.play().then(()=>fab.classList.add('playing')).catch(()=>{
-      fab.classList.remove('playing');
-      const unlock=()=>{
-        audio.play().then(()=>fab.classList.add('playing')).catch(()=>{});
-        document.removeEventListener('touchstart',unlock);
-        document.removeEventListener('click',unlock);
-      };
-      document.addEventListener('touchstart',unlock,{once:true});
-      document.addEventListener('click',unlock,{once:true});
+/* ── PADRINOS TICKER ── */
+(function(){
+  const ticker = document.getElementById('padrinosTicker');
+  const countEl = document.getElementById('padrinosCount');
+  if(!ticker) return;
+  const names = ticker.querySelectorAll('.padrinos-tick-name');
+  const total = names.length;
+  if(!total) return;
+  let current = 0;
+  const SHOW_MS = 2400;
+  const FADE = 0.45;
+  gsap.set(names[0], {opacity:1});
+  function next(){
+    const outEl = names[current];
+    const inIdx = (current + 1) % total;
+    const inEl  = names[inIdx];
+    gsap.to(outEl, {opacity:0, duration:FADE, onComplete:function(){
+      current = inIdx;
+      if(countEl) countEl.textContent = (current+1) + ' / ' + total;
+      gsap.fromTo(inEl, {opacity:0}, {opacity:1, duration:FADE});
+      setTimeout(next, SHOW_MS);
+    }});
+  }
+  setTimeout(next, SHOW_MS);
+})();
+
+/* ── VINYL PLAYER JS ── */
+(function initVinyl(){
+  const MUSIC_START_OFFSET = 0;
+  const musicEl  = document.getElementById('music');
+  const musicBtn = document.getElementById('music-btn');
+  if(musicEl){ musicEl.volume = 0.18; }
+  function setMusicStart(){ if(!musicEl) return; try { musicEl.currentTime = MUSIC_START_OFFSET; } catch(e){} }
+  if(musicEl){
+    musicEl.addEventListener('loadedmetadata', setMusicStart, {once:true});
+    musicEl.addEventListener('play',  ()=> musicBtn && musicBtn.classList.add('is-playing'));
+    musicEl.addEventListener('pause', ()=> musicBtn && musicBtn.classList.remove('is-playing'));
+    musicEl.addEventListener('ended', ()=>{ setMusicStart(); musicEl.play().catch(()=>{}); });
+  }
+  function showMusicBtn(){ if(musicBtn) musicBtn.classList.add('is-ready'); }
+  function startMusic(){ showMusicBtn(); if(!musicEl) return; setMusicStart(); const p=musicEl.play(); if(p&&typeof p.catch==='function') p.catch(()=>{}); }
+  window._startAudio = startMusic;
+  if(musicBtn){
+    musicBtn.addEventListener('click', ()=>{
+      if(!musicEl) return;
+      if(musicEl.paused){ if(musicEl.currentTime < MUSIC_START_OFFSET) setMusicStart(); musicEl.play().catch(()=>{}); }
+      else { musicEl.pause(); }
     });
   }
-  window._startAudio=tryPlay;
-  fab.addEventListener('click',e=>{
-    e.stopPropagation();
-    if(audio.paused){audio.play().then(()=>fab.classList.add('playing')).catch(()=>{});}
-    else{audio.pause();fab.classList.remove('playing');}
-  });
 })();
 
 function sendRsvp(){
