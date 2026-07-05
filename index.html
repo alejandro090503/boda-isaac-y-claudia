@@ -1200,25 +1200,39 @@ function initEnvelope(){
 
 /* ── VINYL PLAYER JS ── */
 (function initVinyl(){
-  const MUSIC_START_OFFSET = 0;
   const musicEl  = document.getElementById('music');
   const musicBtn = document.getElementById('music-btn');
-  if(musicEl){ musicEl.volume = 0.18; }
-  function setMusicStart(){ if(!musicEl) return; try { musicEl.currentTime = MUSIC_START_OFFSET; } catch(e){} }
-  if(musicEl){
-    musicEl.addEventListener('loadedmetadata', setMusicStart, {once:true});
-    musicEl.addEventListener('play',  ()=> musicBtn && musicBtn.classList.add('is-playing'));
-    musicEl.addEventListener('pause', ()=> musicBtn && musicBtn.classList.remove('is-playing'));
-    musicEl.addEventListener('ended', ()=>{ setMusicStart(); musicEl.play().catch(()=>{}); });
+  if(!musicEl) return;
+  musicEl.volume = 0.4;
+  let started = false;
+
+  function showBtn(){ if(musicBtn) musicBtn.classList.add('is-ready'); }
+  function cleanupUnlock(){
+    ['pointerdown','touchstart','touchend','click','keydown'].forEach(ev=>
+      document.removeEventListener(ev, unlock, true));
   }
-  function showMusicBtn(){ if(musicBtn) musicBtn.classList.add('is-ready'); }
-  function startMusic(){ showMusicBtn(); if(!musicEl) return; setMusicStart(); const p=musicEl.play(); if(p&&typeof p.catch==='function') p.catch(()=>{}); }
-  window._startAudio = startMusic;
+  musicEl.addEventListener('play',  ()=>{ started=true; showBtn(); if(musicBtn) musicBtn.classList.add('is-playing'); cleanupUnlock(); });
+  musicEl.addEventListener('pause', ()=>{ if(musicBtn) musicBtn.classList.remove('is-playing'); });
+
+  // intenta reproducir; se llama al abrir el sobre y en cada interacción hasta que suene
+  function tryPlay(){
+    showBtn();
+    const p = musicEl.play();
+    if(p && typeof p.catch==='function') p.catch(()=>{});
+  }
+  window._startAudio = tryPlay;
+
+  // red de seguridad: desbloquea el audio en la PRIMERA interacción del usuario
+  // (captura antes que cualquier otro handler) y reintenta hasta lograrlo
+  function unlock(){ if(!started) tryPlay(); }
+  ['pointerdown','touchstart','touchend','click','keydown'].forEach(ev=>
+    document.addEventListener(ev, unlock, true));
+
+  // botón manual reproducir/pausar
   if(musicBtn){
-    musicBtn.addEventListener('click', ()=>{
-      if(!musicEl) return;
-      if(musicEl.paused){ if(musicEl.currentTime < MUSIC_START_OFFSET) setMusicStart(); musicEl.play().catch(()=>{}); }
-      else { musicEl.pause(); }
+    musicBtn.addEventListener('click', (e)=>{
+      e.stopPropagation();
+      if(musicEl.paused) tryPlay(); else musicEl.pause();
     });
   }
 })();
