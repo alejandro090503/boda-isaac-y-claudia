@@ -446,6 +446,14 @@ body{
 .album-qr-wrap img{width:180px;height:180px;border-radius:12px;display:block;}
 .qr-label{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);}
 
+/* ── MENSAJE PARA LOS NOVIOS ── */
+#mensaje{padding:72px 28px;text-align:center;background:var(--bg)}
+.msg-note{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:17px;font-weight:500;line-height:1.85;color:var(--dark);max-width:340px;margin:16px auto 30px;}
+.msg-card{background:var(--card);border-radius:20px;padding:30px 24px;box-shadow:0 4px 24px rgba(87,18,27,.08);max-width:420px;margin:0 auto;}
+.msg-textarea{width:100%;min-height:118px;resize:vertical;font-family:'Cormorant Garamond',serif;font-size:16px;line-height:1.6;color:var(--text);background:var(--bg);border:1.5px solid rgba(87,18,27,.2);border-radius:14px;padding:15px 16px;margin-bottom:20px;box-sizing:border-box;transition:border-color .25s;}
+.msg-textarea:focus{outline:none;border-color:var(--accent)}
+.msg-textarea::placeholder{color:rgba(1,1,3,.38);font-style:italic}
+
 /* ── FOOTER ── */
 #footer{padding:64px 28px;text-align:center;background:var(--bg)}
 .footer-names{font-family:'Great Vibes',cursive;font-size:50px;color:var(--dark);}
@@ -986,6 +994,20 @@ body{
     </div>
   </section>
 
+  <!-- ── 13. MENSAJE PARA LOS NOVIOS ── -->
+  <section id="mensaje">
+    <p class="eyebrow rv">Con Cariño</p>
+    <h2 class="script-title rv">Un Mensaje para los Novios</h2>
+    <p class="msg-note rv">Tus palabras son un regalo para el corazón. Déjales una felicitación, un consejo o un deseo que Isaac &amp; Claudia atesorarán por siempre en este nuevo comienzo.</p>
+    <div class="msg-card rv">
+      <textarea id="msgNovios" class="msg-textarea" placeholder="Escribe aquí tu mensaje para los novios…"></textarea>
+      <button class="btn-wa" type="button" onclick="sendMensaje()">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 18.15h-.01c-1.52 0-3.01-.41-4.3-1.18l-.31-.18-3.19.84.85-3.11-.2-.32a8.23 8.23 0 0 1-1.26-4.39c0-4.54 3.7-8.23 8.24-8.23 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.69 8.23-8.24 8.23zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.12-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43-.14 0-.31-.01-.48-.01a.92.92 0 0 0-.66.31c-.23.25-.87.85-.87 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.24 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29z"/></svg>
+        Enviar mi mensaje
+      </button>
+    </div>
+  </section>
+
   <!-- ── 14. FOOTER ── -->
   <footer id="footer">
     <div class="footer-names rv">Isaac &amp; Claudia</div>
@@ -1200,6 +1222,14 @@ function initEnvelope(){
 
 function sendRsvp(){
   const text='¡Hola! Con mucho gusto confirmo mi asistencia a la celebración de Isaac Obezo Salinas & Claudia M. Garay Valdiviezo. 🎉\n¡Nos vemos pronto! 💫';
+  window.open('https://wa.me/19707069111?text='+encodeURIComponent(text),'_blank');
+}
+
+function sendMensaje(){
+  const field=document.getElementById('msgNovios');
+  const msg=(field && field.value ? field.value.trim() : '');
+  if(!msg){ if(field){ field.focus(); } return; }
+  const text='💌 Un mensaje para Isaac & Claudia:\n\n«'+msg+'»';
   window.open('https://wa.me/19707069111?text='+encodeURIComponent(text),'_blank');
 }
 
