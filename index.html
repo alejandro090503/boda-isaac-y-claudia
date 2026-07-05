@@ -1104,20 +1104,18 @@ function initEnvelope(){
 
   function checkFlash(){
     if(flashStarted) return;
-    if(!isFinite(envVideo.duration)) return;
-    if(envVideo.currentTime >= envVideo.duration-2) startFlash(1.6);
+    if(envVideo.currentTime >= 3) startFlash();   // cortar el video en el segundo 3
   }
-  function onVideoEnd(){ if(!flashStarted) startFlash(.5); }
-  function startFlash(dur){
+  function onVideoEnd(){ if(!flashStarted) startFlash(); }
+  function startFlash(){
     flashStarted=true;
-    gsap.to(envFlash, {opacity:1,duration:dur,ease:'power2.in',onComplete:finishSequence});
-  }
-  function finishSequence(){
-    if(finished) return; finished=true;
-    envScreen.style.display='none';
+    try{ envVideo.pause(); }catch(e){}
+    envScreen.style.pointerEvents='none';
+    // revelar la invitación debajo y difuminar el sobre hacia ella (cross-dissolve + blur)
     mainWrap.style.visibility='visible';
     initAll();
-    gsap.to(envFlash, {opacity:0,duration:1.2,ease:'power2.out',onComplete(){envFlash.style.display='none';}});
+    gsap.to(envScreen, {opacity:0, filter:'blur(16px)', duration:1.25, ease:'power2.inOut',
+      onComplete(){ if(finished) return; finished=true; envScreen.style.display='none'; }});
   }
   envScreen.addEventListener('click', onTap, {passive:false});
   envScreen.addEventListener('touchstart', onTap, {passive:false});
